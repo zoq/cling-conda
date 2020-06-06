@@ -1,5 +1,5 @@
-{% set name = "cling" %}
-{% set version = "0.7" %}
+{% set name = "cling-nighlty" %}
+{% set version = "0.6" %}
 {% set cling_version = "0.6" %}
 {% set commit = "05bd612" %}
 {% set sha256 = "e9dda2408789f6dff8de15367be7e956966c42b2af56bb75e6f3ae8730e1bedf" %}
