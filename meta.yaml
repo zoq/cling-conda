@@ -1,0 +1,78 @@
+{% set name = "cling" %}
+{% set version = "0.6" %}
+{% set commit = "05bd612" %}
+{% set sha256 = "e9dda2408789f6dff8de15367be7e956966c42b2af56bb75e6f3ae8730e1bedf" %}
+{% set build_number = 2 %}
+{% set clang_version = [5, 0, 0] %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  fn: {{ name }}-{{ version }}-{{ commit }}.tar.gz
+  url: https://github.com/root-project/cling/archive/master.tar.gz
+  sha256: {{ sha256 }}
+  patches:
+    # Export all symbols on windows to generate import library
+    - patches/0001-Export-all-symbols-on-windows.patch
+    # Do not build Jupyter kernel - use xeus-cling instead
+    - patches/0001-remove-jupyter.patch
+    - patches/0027-conda-packaging.patch
+    # Prevent setting sysroot include directory on OS Xd
+    - patches/0001-Drop-compile-time-sysroot.patch
+    - patches/drop-dynamic-library-manager-symbol-support.patch
+
+build:
+  number: {{ build_number }}
+  skip: True  # [win and vc<14]
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x.x') }}
+
+requirements:
+  build:
+    - cmake
+    - ninja  # [win]
+    - {{ compiler('cxx') }}
+  host:
+    - llvmdev {{ clang_version[0] }}
+    - clangdev {{ clang_version|join('.') }}
+    - clang_variant * cling_v{{ version }}
+    - zlib
+  run:
+    # We really depend on the host compiler at runtime:
+    #  - the host compiler STL is one to be used.
+    #  - it is used by cling's runtime compatibility check.
+    - {{ compiler('cxx') }}  # [linux]
+    - clangdev {{ clang_version|join('.') }}
+    - clang_variant * cling_v{{ version }}
+    - zlib
+
+test:
+  commands:
+    - test -f $PREFIX/bin/cling  # [unix]
+    - if exist %LIBRARY_PREFIX%\\bin\\libcling.dll (exit 0) else (exit 1)  # [win]
+    - if exist %LIBRARY_PREFIX%\\lib\\libcling.lib (exit 0) else (exit 1)  # [win]
+    - cling '2+3; 0'
+    - cling '#include <vector>'
+
+about:
+  dev_url: https://github.com/root-project/cling
+  doc_url: https://root.cern.ch/cling
+  home: https://root.cern.ch/cling
+  license: UI/NCSAOSL
+  license_family: BSD
+  license_file: LICENSE.TXT
+  summary: Cling - The Interactive C++ Interpreter
+  description: Cling is an interactive C++ interpreter, built on top of Clang and
+    LLVM compiler infrastructure. Cling realizes the read-eval-print loop (REPL)
+    concept, in order to leverage rapid application development. Implemented as
+    a small extension to LLVM and Clang, the interpreter reuses their strengths
+    such as the praised concise and expressive compiler diagnostics.
+
+extra:
+  recipe-maintainers:
+    - SylvainCorlay
+    - JohanMabille
+    - gouarin
+    - chrisburr
