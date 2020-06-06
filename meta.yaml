@@ -1,5 +1,6 @@
 {% set name = "cling" %}
-{% set version = "0.6" %}
+{% set version = "0.7" %}
+{% set cling_version = "0.6" %}
 {% set commit = "05bd612" %}
 {% set sha256 = "e9dda2408789f6dff8de15367be7e956966c42b2af56bb75e6f3ae8730e1bedf" %}
 {% set build_number = 2 %}
@@ -14,14 +15,12 @@ source:
   url: https://github.com/root-project/cling/archive/master.tar.gz
   sha256: {{ sha256 }}
   patches:
-    # Export all symbols on windows to generate import library
-    - patches/0001-Export-all-symbols-on-windows.patch
-    # Do not build Jupyter kernel - use xeus-cling instead
-    - patches/0001-remove-jupyter.patch
-    - patches/0027-conda-packaging.patch
-    # Prevent setting sysroot include directory on OS Xd
-    - patches/0001-Drop-compile-time-sysroot.patch
+    - patches/export-all-symbols-on-windows.patch
+    - patches/remove-jupyter.patch
+    - patches/conda-packaging.patch
+    - patches/drop-compile-time-sysroot.patch
     - patches/drop-dynamic-library-manager-symbol-support.patch
+    - patches/enable-redefinition-allowed.patch
 
 build:
   number: {{ build_number }}
@@ -37,7 +36,7 @@ requirements:
   host:
     - llvmdev {{ clang_version[0] }}
     - clangdev {{ clang_version|join('.') }}
-    - clang_variant * cling_v{{ version }}
+    - clang_variant * cling_v{{ cling_version }}
     - zlib
   run:
     # We really depend on the host compiler at runtime:
@@ -45,7 +44,7 @@ requirements:
     #  - it is used by cling's runtime compatibility check.
     - {{ compiler('cxx') }}  # [linux]
     - clangdev {{ clang_version|join('.') }}
-    - clang_variant * cling_v{{ version }}
+    - clang_variant * cling_v{{ cling_version }}
     - zlib
 
 test:
@@ -72,7 +71,4 @@ about:
 
 extra:
   recipe-maintainers:
-    - SylvainCorlay
-    - JohanMabille
-    - gouarin
-    - chrisburr
+    - zoq 
