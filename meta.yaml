@@ -1,4 +1,4 @@
-{% set name = "cling-nighlty" %}
+{% set name = "cling" %}
 {% set version = "0.6" %}
 {% set cling_version = "0.6" %}
 {% set commit = "05bd612" %}
@@ -45,7 +45,6 @@ requirements:
     - {{ compiler('cxx') }}  # [linux]
     - clangdev {{ clang_version|join('.') }}
     - clang_variant * cling_v{{ cling_version }}
-    - zlib
 
 test:
   commands:
