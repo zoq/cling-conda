@@ -2,7 +2,7 @@
 {% set version = "0.6" %}
 {% set cling_version = "0.6" %}
 {% set commit = "05bd612" %}
-{% set sha256 = "e9dda2408789f6dff8de15367be7e956966c42b2af56bb75e6f3ae8730e1bedf" %}
+{% set sha256 = "ff53c514ed23754b56eb6d906f1e9ec4b8f17e8292a1af493dfdcc41672dc6a0" %}
 {% set build_number = 2 %}
 {% set clang_version = [5, 0, 0] %}
 
