@@ -4,15 +4,16 @@ steps:
   clean: true
   fetchDepth: 1
 
-- script: |
-    sudo apt-get update
-    sudo apt-get install -y wget git build-essential
+- bash: echo "##vso[task.prependpath]$CONDA/bin"
+  displayName: Add conda to PATH
 
-    conda install -y conda-build
-    source ci/azurepipelines/activate_conda "/usr/share/miniconda/bin/python"
-    cd ..
-    ls
-    conda-build cling-conda-nightly
-  displayName: 'Build'
+- bash: >
+    conda install --yes --quiet
+    conda-build
+    $(extra.packages)
+  displayName: Install conda-build
 
+- bash: >
+    conda build . --no-anaconda-upload -c conda-forge --python $(python.version)
+  displayName: Conda build
 
