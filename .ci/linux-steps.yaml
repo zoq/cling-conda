@@ -8,7 +8,10 @@ steps:
     sudo apt-get update
     sudo apt-get install -y wget git build-essential
 
-    conda install conda-build
+    conda install -y conda-build
+    cd ..
+    ls
+    conda-build cling-conda-nightly
   displayName: 'Build'
 
 
