@@ -11,6 +11,11 @@ steps:
     conda install --yes --quiet
     conda-build
   displayName: Install conda-build
+- script: |
+    wget https://github.com/root-project/cling/archive/master.tar.gz
+    python .ci/hash.py
+    rm master.tar.gz
+  displayName: Patch meta
 
 - bash: >
     wget https://github.com/root-project/cling/archive/master.tar.gz
