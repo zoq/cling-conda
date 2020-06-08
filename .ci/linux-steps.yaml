@@ -18,8 +18,6 @@ steps:
   displayName: Patch meta
 
 - bash: >
-    wget https://github.com/root-project/cling/archive/master.tar.gz
-    python .ci/hash.py
     conda build . --no-anaconda-upload -c conda-forge
   displayName: Conda build
 
