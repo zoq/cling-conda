@@ -6,7 +6,7 @@ pr:
   branches:
      include:
      - '*'
-
+jobs:
 - job: Linux
   timeoutInMinutes: 360
   pool:
