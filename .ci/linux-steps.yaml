@@ -10,10 +10,11 @@ steps:
 - bash: >
     conda install --yes --quiet
     conda-build
-    $(extra.packages)
   displayName: Install conda-build
 
 - bash: >
+    wget https://github.com/root-project/cling/archive/master.tar.gz
+    python .ci/hash.py
     conda build . --no-anaconda-upload -c conda-forge
   displayName: Conda build
 
