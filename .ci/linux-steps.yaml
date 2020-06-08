@@ -1,0 +1,14 @@
+steps:
+# Checkout repository
+- checkout: self
+  clean: true
+  fetchDepth: 1
+
+- script: |
+    sudo apt-get update
+    sudo apt-get install -y wget git build-essential
+
+    conda install conda-build
+  displayName: 'Build'
+
+
