@@ -9,6 +9,7 @@ steps:
     sudo apt-get install -y wget git build-essential
 
     conda install -y conda-build
+    source ci/azurepipelines/activate_conda "/usr/share/miniconda/bin/python"
     cd ..
     ls
     conda-build cling-conda-nightly
