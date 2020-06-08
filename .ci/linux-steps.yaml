@@ -14,6 +14,6 @@ steps:
   displayName: Install conda-build
 
 - bash: >
-    conda build . --no-anaconda-upload -c conda-forge --python $(python.version)
+    conda build . --no-anaconda-upload -c conda-forge
   displayName: Conda build
 
