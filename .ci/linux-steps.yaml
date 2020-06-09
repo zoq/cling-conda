@@ -18,6 +18,12 @@ steps:
   displayName: Patch meta
 
 - bash: >
+    conda config --set anaconda_upload yes
     conda build . --no-anaconda-upload -c conda-forge
   displayName: Conda build
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: /usr/share/miniconda/conda-bld/linux-64/ 
+    artifactName: 'cling'
+  displayName: 'Publish artifacts'
