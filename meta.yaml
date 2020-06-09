@@ -1,7 +1,7 @@
 {% set name = "cling" %}
 {% set cling_version = "0.6.2" %}
 {% set cling_version = "0.6" %}
-{% set commit = "4ab4acf" %}
+{% set commit = "7abc3d4" %}
 {% set sha256 = "bf911d653eee207bdf7e6bd58bb2c964cfb1cb65ca9a20a28fc60cbb633cdf19" %}
 {% set build_number = 2 %}
 {% set clang_version = [5, 0, 0] %}
