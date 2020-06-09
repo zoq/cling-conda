@@ -13,8 +13,10 @@ steps:
   displayName: Install conda-build
 - script: |
     wget https://github.com/root-project/cling/archive/master.tar.gz
+    git clone --depth=1 https://github.com/root-project/cling.git
     python .ci/hash.py
     rm master.tar.gz
+    rm -rf cling
   displayName: Patch meta
 
 - bash: >
