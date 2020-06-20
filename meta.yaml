@@ -1,5 +1,5 @@
 {% set name = "cling" %}
-{% set version = "0.6.3" %}
+{% set version = "0.6.1" %}
 {% set cling_version = "0.6" %}
 {% set build_number = 2 %}
 {% set clang_version = [5, 0, 0] %}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/root-project/cling/archive/master.tar.gz
-  sha256: 29f7ab96d27f7f900a5e0e5abd8bc74ebcab7e8ea9bc21d0a35112a5003c4402
+  sha256: a1edc34f403c059a404052887b00f63d0e00d3edfff3e617f5c4d894e68ed988
   patches:
     - patches/export-all-symbols-on-windows.patch
     - patches/remove-jupyter.patch
