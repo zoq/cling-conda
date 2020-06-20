@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://github.com/root-project/cling/archive/master.tar.gz
-  sha256: a1edc34f403c059a404052887b00f63d0e00d3edfff3e617f5c4d894e68ed988
+  sha256: 5ace3ffb94b798755e2b0bc0b51844e9710e614a8b88874733e4c8389fcf4c2f
   patches:
     - patches/export-all-symbols-on-windows.patch
     - patches/remove-jupyter.patch
